@@ -1,0 +1,10 @@
+model ProductCustomMaterial {
+    productCustomId BigInt @map("product_custom_id")
+    materialId      BigInt @map("material_id")
+
+    ProductCustom ProductCustom @relation(fields: [productCustomId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    Material      Material      @relation(fields: [materialId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    @@id([productCustomId, materialId])
+    @@map("dt_product_custom_material")
+}

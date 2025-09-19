@@ -1,0 +1,3 @@
+// Tokens used for Dependency Injection
+
+export const MATERIAL_REPOSITORY = Symbol('MATERIAL_REPOSITORY');

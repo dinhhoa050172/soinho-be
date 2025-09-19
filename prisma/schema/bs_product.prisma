@@ -1,0 +1,30 @@
+model Product {
+  id BigInt @id @default(autoincrement())
+
+  slug        String   @unique @map("slug") @db.VarChar(255)
+  name        String   @map("name") @db.VarChar(255)
+  price       Decimal? @map("price") @db.Decimal(10, 3)
+  height      Decimal? @map("height") @db.Decimal(10, 3)
+  width       Decimal? @map("width") @db.Decimal(10, 3)
+  length      Decimal? @map("length") @db.Decimal(10, 3)
+  stockQty    Int?     @map("stock_qty") @db.Integer
+  description String?  @map("description") @db.Text
+  isActive    Boolean? @default(true) @map("is_active") @db.Boolean
+
+  categoryId BigInt? @map("category_id") @db.BigInt
+  materialId BigInt? @map("material_id") @db.BigInt
+
+  createdAt DateTime? @default(now()) @map("created_date") @db.Timestamptz(3)
+  createdBy String    @map("created_by") @db.VarChar(36)
+  updatedAt DateTime? @updatedAt @map("modified_date") @db.Timestamptz(3)
+  updatedBy String?   @map("modified_by") @db.VarChar(36)
+
+  Category Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  Material Material? @relation(fields: [materialId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  ProductImage ProductImage[]
+  OrderItem    OrderItem[]
+  CartItem     CartItem[]
+
+  @@map("bs_product")
+}
